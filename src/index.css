@@ -76,6 +76,10 @@
     padding: 0;
 }
 
+.articleCard:hover {
+  cursor: pointer;
+}
+
 .articleCard {
     border-style: solid;
     border-color: black;
@@ -109,4 +113,19 @@
     justify-content: space-evenly;
     color: #666;
     width: 50%;
+}
+
+.singleArtBox {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.singleArticle img {
+  width: 75%;
+}
+
+.singleArtBox span {
+  flex: 1;
+  text-align: center;
 }
