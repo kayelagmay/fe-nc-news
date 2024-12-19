@@ -13,3 +13,13 @@ export function get(url, params = {}) {
         throw error;
       });
   };
+
+  export function patch(url, body) {
+    return apiClient
+      .patch(url, body)
+      .then((res) => res.data)
+      .catch((error) => {
+        console.error(`PATCH request to ${url} failed:`, error.message);
+        throw error;
+      });
+  }
