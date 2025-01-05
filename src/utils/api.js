@@ -22,4 +22,14 @@ export function get(url, params = {}) {
         console.error(`PATCH request to ${url} failed:`, error.message);
         throw error;
       });
-  }
+  };
+
+  export function post(url, body) {
+    return apiClient
+      .post(url, body)
+      .then((res) => res.data)
+      .catch((error) => {
+        console.log(`POST request to ${url} failed:`, error.message)
+        throw error;
+      });
+  };
