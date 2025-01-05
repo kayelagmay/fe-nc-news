@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from "react-router-dom";
-import { get } from './utils/api';
+import { get, deleteComment } from './utils/api';
 import CommentForm from './CommentForm';
+import { UserContext } from "./App";
 import './index.css';
 
 function Comments() {
     const { article_id } = useParams();
     const [comments, setComments] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [isDeleting, setIsDeleting] = useState(null); 
     const [error, setError] = useState(null);
+    const user = useContext(UserContext);
 
     useEffect(() => {
         get(`/articles/${article_id}/comments`)
             .then((data) => {
-                console.log("Fetched Comments:", data.comments);
                 setComments(data.comments);
                 setIsLoading(false);
             })
@@ -31,6 +33,23 @@ function Comments() {
         });
     };
 
+    const handleDelete = (comment_id) => {
+        setIsDeleting(comment_id)
+
+        deleteComment(comment_id)
+        .then(() => {
+          setComments((currentComments) =>
+            currentComments.map((comment) => comment.comment_id === comment_id
+                ? { ...comment, body: "[This comment has been deleted]" }
+                : comment));
+          setIsDeleting(null); 
+        })
+        .catch((err) => {
+          console.error("Failed to delete comment:", err.message);
+          setIsDeleting(null);
+        });
+    };
+
     if (isLoading) return <p>Loading article...</p>;
     if (error) return <p>Error: {error}</p>;
 
@@ -42,15 +61,18 @@ function Comments() {
         <div className='commentsBox'>
             <h3>Comments ({comments.length})</h3>
             <ul className='commentsList'>
-                {console.log("Rendered Comments:", comments)}
                 {comments.map((comment) => (
                     <li className='commentCard' key={comment.comment_id}>
                         <p><strong>{comment.author}</strong> said:</p>
                         <p>{comment.body}</p>
                         <p>Votes: {comment.votes}</p>
                         <p>Posted on: {new Date(comment.created_at).toLocaleString()}</p>
+                        {comment.author === user.username && <button onClick={() => handleDelete(comment.comment_id)} 
+                        disabled={isDeleting === comment.comment_id}>
+                            {isDeleting === comment.comment_id ? "Deleting..." : "Delete"}
+                        </button>}
                     </li>
-                    ))}
+                ))}
             </ul>
         </div>
         </>
