@@ -36,7 +36,7 @@ function ArticleById() {
                 ...currentArticle,
                 votes: currentArticle.votes - increment,
             }));
-            setVoteError('Failed to register your vote. Please try again');
+            setVoteError('Failed to register your vote. Please try again.');
         });
     };
 
@@ -59,7 +59,6 @@ function ArticleById() {
             {voteError && <p className="error">{voteError}</p>}
             <p>{article.body}</p>
             <hr />
-            <p >View Comments </p>
         </div>
         <Comments />
     </>
