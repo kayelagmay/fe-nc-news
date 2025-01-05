@@ -33,3 +33,13 @@ export function get(url, params = {}) {
         throw error;
       });
   };
+
+  export function deleteComment(comment_id) {
+    return apiClient
+      .delete(`/comments/${comment_id}`)
+      .then((res) => res.data)
+      .catch((error) => {
+        console.error(`DELETE request for comment ID /${comment_id} failed:`, error.message);
+        throw error;
+      });
+  }
