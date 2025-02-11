@@ -2,6 +2,7 @@ import React, {createContext, useState} from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './Header';
 import Home from './Home';
+import Topics from './Topics';
 import ArticleById from './ArticleById';
 import Comments from './Comments';
 import './App.css';
@@ -21,6 +22,7 @@ function App() {
         <Header />
         <Routes>
           <Route path='/' element={<Home />}/>
+          <Route path='/topics' element={<Topics />}/>
           <Route path="/articles/:article_id" element={<ArticleById />} />
           <Route path="/articles/:article_id/comments" element={<Comments />} />
         </Routes>
