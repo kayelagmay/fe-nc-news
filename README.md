@@ -38,7 +38,7 @@ Run the following command to install project dependencies:
 ### 3. Start the Development Server
 Run the following command to start the development server:
 
-`npm start`
+`npm run dev`
 
 ### 4. View the Project
 Open http://localhost:3000 to view it in your browser.
