@@ -41,7 +41,7 @@ Run the following command to start the development server:
 `npm run dev`
 
 ### 4. View the Project
-Open http://localhost:3000 to view it in your browser.
+Open the given local port link to view it in your browser
 
 ## Future Improvements
 - Add user authentication
